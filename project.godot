@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="Cuttle"
+run/main_scene="res://src/scenes/field.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-GameManager="*res://src/GameManager.gd"
+Global="*res://src/scripts/global.gd"
 
 [editor]
 

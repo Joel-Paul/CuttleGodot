@@ -41,14 +41,14 @@ func _draw() -> void:
 		_draw_preview()
 
 func _draw_preview() -> void:
-	var offset = GameManager.CARD_SIZE / -2.0  # make centre of card the origin
+	var offset = Global.CARD_SIZE / -2.0  # make centre of card the origin
 	var points = PackedVector2Array()
 	
 	for i in preview_num_cards:
 		var trans = get_card_transform(i, preview_num_cards)
 		draw_set_transform_matrix(trans)
 
-		var rect = Rect2(offset, GameManager.CARD_SIZE)
+		var rect = Rect2(offset, Global.CARD_SIZE)
 		if preview_show_cards:
 			draw_texture_rect(preview_card_texture, rect, false)
 		
@@ -63,7 +63,7 @@ func get_card_transform(index: int, length: int) -> Transform2D:
 	# number of cards increase, preventing them from going off screen with a large amount
 	var spacing = max_spacing * exp(-length * spacing_scale)
 	# I don't remember how I derived the below equation
-	var x_pos = (index - (length - 1) / 2.0) * GameManager.CARD_SIZE.x * spacing
+	var x_pos = (index - (length - 1) / 2.0) * Global.CARD_SIZE.x * spacing
 	var y_pos = pow(x_pos, 2) * curvature / get_viewport_rect().size.x
 	var pos = Vector2(x_pos, y_pos)
 	
