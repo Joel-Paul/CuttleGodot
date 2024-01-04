@@ -1,0 +1,115 @@
+[gd_resource type="Resource" script_class="CardTexture" load_steps=56 format=3 uid="uid://chrohr23jvhlp"]
+
+[ext_resource type="Texture2D" uid="uid://bf36esam5d8tg" path="res://addons/Pixel Playing Cards Pack/ace_clubs_white.png" id="1_d2r4q"]
+[ext_resource type="Script" path="res://src/scripts/card_texture.gd" id="1_j7k27"]
+[ext_resource type="Texture2D" uid="uid://sv8bi5ux3gke" path="res://addons/Pixel Playing Cards Pack/back_red_basic_white.png" id="1_r0a2y"]
+[ext_resource type="Texture2D" uid="uid://cynmqllexe3hr" path="res://addons/Pixel Playing Cards Pack/8_clubs_white.png" id="3_t6f7p"]
+[ext_resource type="Texture2D" uid="uid://cx6wrkgm7tpbu" path="res://addons/Pixel Playing Cards Pack/5_clubs_white.png" id="4_huufl"]
+[ext_resource type="Texture2D" uid="uid://bq51ccdfl3o1h" path="res://addons/Pixel Playing Cards Pack/4_clubs_white.png" id="5_bk1uc"]
+[ext_resource type="Texture2D" uid="uid://boguict5cslqr" path="res://addons/Pixel Playing Cards Pack/jack_clubs_white.png" id="6_jj78l"]
+[ext_resource type="Texture2D" uid="uid://de2elt7xgskbw" path="res://addons/Pixel Playing Cards Pack/king_clubs_white.png" id="7_ifonp"]
+[ext_resource type="Texture2D" uid="uid://d6s5xagr8gwf" path="res://addons/Pixel Playing Cards Pack/9_clubs_white.png" id="8_ng74j"]
+[ext_resource type="Texture2D" uid="uid://b6mw6x3hjkcip" path="res://addons/Pixel Playing Cards Pack/queen_clubs_white.png" id="9_g12hb"]
+[ext_resource type="Texture2D" uid="uid://dqdiy7fj04so5" path="res://addons/Pixel Playing Cards Pack/7_clubs_white.png" id="10_f6iem"]
+[ext_resource type="Texture2D" uid="uid://b6ji58q26702m" path="res://addons/Pixel Playing Cards Pack/6_clubs_white.png" id="11_f26ry"]
+[ext_resource type="Texture2D" uid="uid://du8w47n0akm8c" path="res://addons/Pixel Playing Cards Pack/10_clubs_white.png" id="12_ccxjj"]
+[ext_resource type="Texture2D" uid="uid://clb4tfnjjuy5o" path="res://addons/Pixel Playing Cards Pack/3_clubs_white.png" id="13_kja03"]
+[ext_resource type="Texture2D" uid="uid://cbm61gme046oq" path="res://addons/Pixel Playing Cards Pack/2_clubs_white.png" id="14_ca085"]
+[ext_resource type="Texture2D" uid="uid://bli2dng02axve" path="res://addons/Pixel Playing Cards Pack/joker_white.png" id="15_gdvxx"]
+[ext_resource type="Texture2D" uid="uid://bonca62qinixa" path="res://addons/Pixel Playing Cards Pack/ace_diamonds_white.png" id="15_vdnur"]
+[ext_resource type="Texture2D" uid="uid://c5eniejj1khoj" path="res://addons/Pixel Playing Cards Pack/8_diamonds_white.png" id="16_ug6ky"]
+[ext_resource type="Texture2D" uid="uid://bo8vr1njp5lvk" path="res://addons/Pixel Playing Cards Pack/5_diamonds_white.png" id="17_sajxx"]
+[ext_resource type="Texture2D" uid="uid://xcvst23mvcu5" path="res://addons/Pixel Playing Cards Pack/4_diamonds_white.png" id="18_7mr6q"]
+[ext_resource type="Texture2D" uid="uid://bopcahl2pctu7" path="res://addons/Pixel Playing Cards Pack/jack_diamonds_white.png" id="19_2mk7k"]
+[ext_resource type="Texture2D" uid="uid://chvke7ogpofgx" path="res://addons/Pixel Playing Cards Pack/king_diamonds_white.png" id="20_w860s"]
+[ext_resource type="Texture2D" uid="uid://dkwbjb1ewwslh" path="res://addons/Pixel Playing Cards Pack/9_diamonds_white.png" id="21_6fyvj"]
+[ext_resource type="Texture2D" uid="uid://w0kkxsls1gu6" path="res://addons/Pixel Playing Cards Pack/queen_diamonds_white.png" id="22_e5ccp"]
+[ext_resource type="Texture2D" uid="uid://l0kh6jrydrcm" path="res://addons/Pixel Playing Cards Pack/7_diamonds_white.png" id="23_sbkev"]
+[ext_resource type="Texture2D" uid="uid://bmdh13oqqyf4n" path="res://addons/Pixel Playing Cards Pack/6_diamonds_white.png" id="24_rijdp"]
+[ext_resource type="Texture2D" uid="uid://d300ulfxn1o0y" path="res://addons/Pixel Playing Cards Pack/10_diamonds_white.png" id="25_way8e"]
+[ext_resource type="Texture2D" uid="uid://bct2xbal61o32" path="res://addons/Pixel Playing Cards Pack/3_diamonds_white.png" id="26_cf83p"]
+[ext_resource type="Texture2D" uid="uid://bpg8hwjrpfwvf" path="res://addons/Pixel Playing Cards Pack/2_diamonds_white.png" id="27_p5bjn"]
+[ext_resource type="Texture2D" uid="uid://cj2qdev28o7nj" path="res://addons/Pixel Playing Cards Pack/ace_hearts_white.png" id="28_jwhjn"]
+[ext_resource type="Texture2D" uid="uid://dgd2bbhhh37h7" path="res://addons/Pixel Playing Cards Pack/8_hearts_white.png" id="29_884tq"]
+[ext_resource type="Texture2D" uid="uid://ck2w4ir810l3a" path="res://addons/Pixel Playing Cards Pack/5_hearts_white.png" id="30_ikxhy"]
+[ext_resource type="Texture2D" uid="uid://s18mqyjwtu4w" path="res://addons/Pixel Playing Cards Pack/4_hearts_white.png" id="31_t522b"]
+[ext_resource type="Texture2D" uid="uid://dohh1hwp8e0sa" path="res://addons/Pixel Playing Cards Pack/jack_hearts_white.png" id="32_n6j1n"]
+[ext_resource type="Texture2D" uid="uid://bug4af38uwvx0" path="res://addons/Pixel Playing Cards Pack/king_hearts_white.png" id="33_11c7t"]
+[ext_resource type="Texture2D" uid="uid://bqj2kgn8g0mgv" path="res://addons/Pixel Playing Cards Pack/9_hearts_white.png" id="34_6upd6"]
+[ext_resource type="Texture2D" uid="uid://v6qj62bc2062" path="res://addons/Pixel Playing Cards Pack/queen_hearts_white.png" id="35_e3eir"]
+[ext_resource type="Texture2D" uid="uid://dbkqj7yyry550" path="res://addons/Pixel Playing Cards Pack/7_hearts_white.png" id="36_0skiv"]
+[ext_resource type="Texture2D" uid="uid://7da6gggk4wwu" path="res://addons/Pixel Playing Cards Pack/6_hearts_white.png" id="37_8o55d"]
+[ext_resource type="Texture2D" uid="uid://dhjufd0d85rj5" path="res://addons/Pixel Playing Cards Pack/10_hearts_white.png" id="38_yertm"]
+[ext_resource type="Texture2D" uid="uid://dpsooudw5n2ey" path="res://addons/Pixel Playing Cards Pack/3_hearts_white.png" id="39_7q71k"]
+[ext_resource type="Texture2D" uid="uid://b3gnca8t1yy1y" path="res://addons/Pixel Playing Cards Pack/2_hearts_white.png" id="40_ipnnx"]
+[ext_resource type="Texture2D" uid="uid://dw1b4k0evknxm" path="res://addons/Pixel Playing Cards Pack/ace_spades_white.png" id="43_vkd6s"]
+[ext_resource type="Texture2D" uid="uid://dtioyr3fd72ui" path="res://addons/Pixel Playing Cards Pack/8_spades_white.png" id="44_tn2gr"]
+[ext_resource type="Texture2D" uid="uid://c5p87cjgqtk31" path="res://addons/Pixel Playing Cards Pack/5_spades_white.png" id="45_ujsxv"]
+[ext_resource type="Texture2D" uid="uid://crudcr2h8cby6" path="res://addons/Pixel Playing Cards Pack/4_spades_white.png" id="46_47rq3"]
+[ext_resource type="Texture2D" uid="uid://db4etiv7w5auf" path="res://addons/Pixel Playing Cards Pack/jack_spades_white.png" id="47_kdq2r"]
+[ext_resource type="Texture2D" uid="uid://diaidmn3ptuc8" path="res://addons/Pixel Playing Cards Pack/king_spades_white.png" id="48_5oor0"]
+[ext_resource type="Texture2D" uid="uid://cy08c761aajmk" path="res://addons/Pixel Playing Cards Pack/9_spades_white.png" id="49_cjssg"]
+[ext_resource type="Texture2D" uid="uid://drl52mtqthu3u" path="res://addons/Pixel Playing Cards Pack/queen_spades_white.png" id="50_m77ra"]
+[ext_resource type="Texture2D" uid="uid://dqpvn601p80b5" path="res://addons/Pixel Playing Cards Pack/7_spades_white.png" id="51_ka8np"]
+[ext_resource type="Texture2D" uid="uid://cd32q66oblbwl" path="res://addons/Pixel Playing Cards Pack/6_spades_white.png" id="52_nxc08"]
+[ext_resource type="Texture2D" uid="uid://b1u6ff0bgvxy2" path="res://addons/Pixel Playing Cards Pack/10_spades_white.png" id="53_787uf"]
+[ext_resource type="Texture2D" uid="uid://c6ttoltqb64yr" path="res://addons/Pixel Playing Cards Pack/3_spades_white.png" id="54_ceu46"]
+[ext_resource type="Texture2D" uid="uid://dyttno0nt7dxf" path="res://addons/Pixel Playing Cards Pack/2_spades_white.png" id="55_dqk2d"]
+
+[resource]
+script = ExtResource("1_j7k27")
+scale = 1.0
+clubs_ace = ExtResource("1_d2r4q")
+clubs_two = ExtResource("14_ca085")
+clubs_three = ExtResource("13_kja03")
+clubs_four = ExtResource("5_bk1uc")
+clubs_five = ExtResource("4_huufl")
+clubs_six = ExtResource("11_f26ry")
+clubs_seven = ExtResource("10_f6iem")
+clubs_eight = ExtResource("3_t6f7p")
+clubs_nine = ExtResource("8_ng74j")
+clubs_ten = ExtResource("12_ccxjj")
+clubs_jack = ExtResource("6_jj78l")
+clubs_queen = ExtResource("9_g12hb")
+clubs_king = ExtResource("7_ifonp")
+diamonds_ace = ExtResource("15_vdnur")
+diamonds_two = ExtResource("27_p5bjn")
+diamonds_three = ExtResource("26_cf83p")
+diamonds_four = ExtResource("18_7mr6q")
+diamonds_five = ExtResource("17_sajxx")
+diamonds_six = ExtResource("24_rijdp")
+diamonds_seven = ExtResource("23_sbkev")
+diamonds_eight = ExtResource("16_ug6ky")
+diamonds_nine = ExtResource("21_6fyvj")
+diamonds_ten = ExtResource("25_way8e")
+diamonds_jack = ExtResource("19_2mk7k")
+diamonds_queen = ExtResource("22_e5ccp")
+diamonds_king = ExtResource("20_w860s")
+hearts_ace = ExtResource("28_jwhjn")
+hearts_two = ExtResource("40_ipnnx")
+hearts_three = ExtResource("39_7q71k")
+hearts_four = ExtResource("31_t522b")
+hearts_five = ExtResource("30_ikxhy")
+hearts_six = ExtResource("37_8o55d")
+hearts_seven = ExtResource("36_0skiv")
+hearts_eight = ExtResource("29_884tq")
+hearts_nine = ExtResource("34_6upd6")
+hearts_ten = ExtResource("38_yertm")
+hearts_jack = ExtResource("32_n6j1n")
+hearts_queen = ExtResource("35_e3eir")
+hearts_king = ExtResource("33_11c7t")
+spades_ace = ExtResource("43_vkd6s")
+spades_two = ExtResource("55_dqk2d")
+spades_three = ExtResource("54_ceu46")
+spades_four = ExtResource("46_47rq3")
+spades_five = ExtResource("45_ujsxv")
+spades_six = ExtResource("52_nxc08")
+spades_seven = ExtResource("51_ka8np")
+spades_eight = ExtResource("44_tn2gr")
+spades_nine = ExtResource("49_cjssg")
+spades_ten = ExtResource("53_787uf")
+spades_jack = ExtResource("47_kdq2r")
+spades_queen = ExtResource("50_m77ra")
+spades_king = ExtResource("48_5oor0")
+joker = ExtResource("15_gdvxx")
+back = ExtResource("1_r0a2y")
