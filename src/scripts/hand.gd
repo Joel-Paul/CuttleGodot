@@ -74,7 +74,7 @@ func _draw_preview_cards() -> void:
 		draw_set_transform_matrix(trans)
 
 		var rect: Rect2 = Rect2(offset, preview_card_texture.get_size())
-		draw_texture_rect(preview_card_texture.back, rect, false)
+		draw_texture_rect(preview_card_texture.blank, rect, false)
 	draw_set_transform(Vector2.ZERO)
 
 func _draw_preview_curve() -> void:

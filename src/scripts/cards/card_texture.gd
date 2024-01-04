@@ -74,12 +74,13 @@ class_name CardTexture
 
 @export var joker: Texture2D
 @export var back: Texture2D
+@export var blank: Texture2D
 
 func get_size() -> Vector2:
-	return back.get_size() * scale
+	return blank.get_size() * scale
 
 func get_height() -> float:
-	return back.get_height() * scale
+	return blank.get_height() * scale
 
 func get_width() -> float:
-	return back.get_width() * scale
+	return blank.get_width() * scale

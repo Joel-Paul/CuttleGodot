@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c27ubljoxh22w"]
+
+[ext_resource type="Script" path="res://src/scripts/cards/tens.gd" id="1_qeajj"]
+
+[node name="Tens" type="Node2D"]
+script = ExtResource("1_qeajj")
