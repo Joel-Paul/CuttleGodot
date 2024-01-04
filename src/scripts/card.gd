@@ -7,3 +7,4 @@ extends Node2D
 
 func _ready() -> void:
 	card_sprite.texture = card_texture.back
+	card_sprite.scale = Vector2(card_texture.scale, card_texture.scale)
