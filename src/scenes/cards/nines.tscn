@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ck0p5d61woorc"]
-
-[ext_resource type="Script" path="res://src/scripts/cards/nines.gd" id="1_0ass2"]
-
-[node name="Nines" type="Node2D"]
-script = ExtResource("1_0ass2")

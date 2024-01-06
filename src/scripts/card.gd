@@ -1,0 +1,42 @@
+@tool
+extends Node2D
+class_name Card
+
+enum RANK {JOKER, ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING}
+enum SUIT {CLUBS, DIAMONDS, HEARTS, SPADES}
+
+@export var rank: RANK:
+	set(val):
+		rank = val
+		_set_texture()
+
+@export var suit: SUIT:
+	set(val):
+		suit = val
+		_set_texture()
+
+@export var card_texture: CardTexture = preload("res://src/resources/card_textures/default.tres"):
+	set(val):
+		card_texture = val
+		_set_texture()
+
+@onready var card_sprite: Sprite2D = Sprite2D.new()
+
+func _init(p_rank: RANK = RANK.JOKER, p_suit: SUIT = SUIT.CLUBS) -> void:
+	if Engine.is_editor_hint():
+		return
+	rank = p_rank
+	suit = p_suit
+
+func _ready() -> void:
+	add_child(card_sprite)
+	_set_texture()
+
+func _set_texture() -> void:
+	card_sprite.set_texture(_get_texture())
+	card_sprite.scale = Vector2.ONE * card_texture.scale
+
+func _get_texture() -> Texture2D:
+	if rank == RANK.JOKER:
+		return card_texture.joker
+	return card_texture.get_all()[suit][rank - 1]

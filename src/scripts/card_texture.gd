@@ -74,13 +74,35 @@ class_name CardTexture
 
 @export var joker: Texture2D
 @export var back: Texture2D
-@export var blank: Texture2D
 
 func get_size() -> Vector2:
-	return blank.get_size() * scale
+	return back.get_size() * scale
 
 func get_height() -> float:
-	return blank.get_height() * scale
+	return back.get_height() * scale
 
 func get_width() -> float:
-	return blank.get_width() * scale
+	return back.get_width() * scale
+
+## Returns all the textures for the Clubs suit from lowest (Ace) to highest (King)
+func get_clubs() -> Array[Texture2D]:
+	return [clubs_ace, clubs_two, clubs_three, clubs_four, clubs_five, clubs_six, clubs_seven, clubs_eight, clubs_nine, clubs_ten, clubs_jack, clubs_queen, clubs_king]
+
+## Returns all the textures for the Diamonds suit from lowest (Ace) to highest (King)
+func get_diamonds() -> Array[Texture2D]:
+	return [diamonds_ace, diamonds_two, diamonds_three, diamonds_four, diamonds_five, diamonds_six,diamonds_seven, diamonds_eight, diamonds_nine, diamonds_ten, diamonds_jack, diamonds_queen, diamonds_king]
+
+## Returns all the textures for the Hearts suit from lowest (Ace) to highest (King)
+func get_hearts() -> Array[Texture2D]:
+	return [hearts_ace, hearts_two, hearts_three, hearts_four, hearts_five, hearts_six, hearts_seven, hearts_eight, hearts_nine, hearts_ten, hearts_jack, hearts_queen, hearts_king]
+
+## Returns all the textures for the Spades suit from lowest (Ace) to highest (King)
+func get_spades() -> Array[Texture2D]:
+	return [spades_ace, spades_two, spades_three, spades_four, spades_five, spades_six, spades_seven, spades_eight, spades_nine, spades_ten, spades_jack, spades_queen, spades_king]
+
+## Returns all the textures for all 4 suits in order of Clubs, Diamonds, Hearts, and Spades.
+## Each suit is ordered from lowest (Ace) to highest (King)
+## e.g. to get the texture for 6 of Hearts you can do [code]get_all()[2][5][/code]
+## or alternatively [code]get_all()[Card.SUIT.HEARTS][Card.RANK.SIX - 1][/code]
+func get_all() -> Array[Array]:
+	return [get_clubs(), get_diamonds(), get_hearts(), get_spades()]

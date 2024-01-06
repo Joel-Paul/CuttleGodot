@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://byu60cc4yeodg"]
-
-[ext_resource type="Script" path="res://src/scripts/cards/kings.gd" id="1_kvg2s"]
-
-[node name="Kings" type="Node2D"]
-script = ExtResource("1_kvg2s")

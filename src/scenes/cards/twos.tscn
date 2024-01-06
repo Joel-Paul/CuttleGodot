@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://d10jmdln1nw2j"]
-
-[ext_resource type="Script" path="res://src/scripts/cards/twos.gd" id="1_hg4em"]
-
-[node name="Twos" type="Node2D"]
-script = ExtResource("1_hg4em")

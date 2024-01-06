@@ -42,7 +42,7 @@
 [ext_resource type="Texture2D" uid="uid://dhjufd0d85rj5" path="res://addons/Pixel Playing Cards Pack/10_hearts_white.png" id="38_yertm"]
 [ext_resource type="Texture2D" uid="uid://dpsooudw5n2ey" path="res://addons/Pixel Playing Cards Pack/3_hearts_white.png" id="39_7q71k"]
 [ext_resource type="Texture2D" uid="uid://b3gnca8t1yy1y" path="res://addons/Pixel Playing Cards Pack/2_hearts_white.png" id="40_ipnnx"]
-[ext_resource type="Script" path="res://src/scripts/cards/card_texture.gd" id="43_aj6ec"]
+[ext_resource type="Script" path="res://src/scripts/card_texture.gd" id="43_aj6ec"]
 [ext_resource type="Texture2D" uid="uid://dw1b4k0evknxm" path="res://addons/Pixel Playing Cards Pack/ace_spades_white.png" id="43_vkd6s"]
 [ext_resource type="Texture2D" uid="uid://dtioyr3fd72ui" path="res://addons/Pixel Playing Cards Pack/8_spades_white.png" id="44_tn2gr"]
 [ext_resource type="Texture2D" uid="uid://c5p87cjgqtk31" path="res://addons/Pixel Playing Cards Pack/5_spades_white.png" id="45_ujsxv"]

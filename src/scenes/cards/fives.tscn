@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://lar2w2eo75fr"]
-
-[ext_resource type="Script" path="res://src/scripts/cards/fives.gd" id="1_vdp4l"]
-
-[node name="Fives" type="Node2D"]
-script = ExtResource("1_vdp4l")

@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cebtg67m0xj7w"]
-
-[ext_resource type="Script" path="res://src/scripts/cards/threes.gd" id="1_epw11"]
-
-[node name="Threes" type="Node2D"]
-script = ExtResource("1_epw11")

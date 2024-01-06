@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://in0hf0l8iexm"]
-
-[ext_resource type="Script" path="res://src/scripts/cards/eights.gd" id="1_o0705"]
-
-[node name="Eights" type="Node2D"]
-script = ExtResource("1_o0705")

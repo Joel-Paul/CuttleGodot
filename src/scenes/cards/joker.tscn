@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpr12t5gbcpuk"]
-
-[ext_resource type="Script" path="res://src/scripts/cards/joker.gd" id="1_tkqbc"]
-
-[node name="Joker" type="Node2D"]
-script = ExtResource("1_tkqbc")
