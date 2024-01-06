@@ -39,4 +39,5 @@ func _set_texture() -> void:
 func _get_texture() -> Texture2D:
 	if rank == RANK.JOKER:
 		return card_texture.joker
-	return card_texture.get_all()[suit][rank - 1]
+	# Subtract 1 to exclude RANK.JOKER
+	return card_texture.get_all()[(RANK.size() - 1) * suit + rank - 1]

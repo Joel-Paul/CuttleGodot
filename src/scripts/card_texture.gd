@@ -102,7 +102,6 @@ func get_spades() -> Array[Texture2D]:
 
 ## Returns all the textures for all 4 suits in order of Clubs, Diamonds, Hearts, and Spades.
 ## Each suit is ordered from lowest (Ace) to highest (King)
-## e.g. to get the texture for 6 of Hearts you can do [code]get_all()[2][5][/code]
-## or alternatively [code]get_all()[Card.SUIT.HEARTS][Card.RANK.SIX - 1][/code]
-func get_all() -> Array[Array]:
-	return [get_clubs(), get_diamonds(), get_hearts(), get_spades()]
+## e.g. Ace of Clubs is at index 0 and King of Spades is at index 51
+func get_all() -> Array[Texture2D]:
+	return get_clubs() + get_diamonds() + get_hearts() + get_spades()
