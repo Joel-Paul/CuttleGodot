@@ -1,6 +1,6 @@
 @tool
-extends Node2D
 class_name Card
+extends Node2D
 
 enum RANK {JOKER, ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING}
 enum SUIT {CLUBS, DIAMONDS, HEARTS, SPADES}
@@ -20,7 +20,7 @@ enum SUIT {CLUBS, DIAMONDS, HEARTS, SPADES}
 		card_texture = val
 		_set_texture()
 
-@onready var card_sprite: Sprite2D = Sprite2D.new()
+var card_sprite: Sprite2D = Sprite2D.new()
 
 func _init(p_rank: RANK = RANK.JOKER, p_suit: SUIT = SUIT.CLUBS) -> void:
 	if Engine.is_editor_hint():
@@ -41,3 +41,6 @@ func _get_texture() -> Texture2D:
 		return card_texture.joker
 	# Subtract 1 to exclude RANK.JOKER
 	return card_texture.get_all()[(RANK.size() - 1) * suit + rank - 1]
+
+func get_size() -> Vector2:
+	return card_texture.get_size()

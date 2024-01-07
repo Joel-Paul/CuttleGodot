@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://do1v52abku40b"]
+
+[ext_resource type="Script" path="res://src/scripts/deck.gd" id="1_liqn5"]
+
+[node name="Deck" type="Marker2D"]
+script = ExtResource("1_liqn5")

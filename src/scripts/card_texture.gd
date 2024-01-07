@@ -1,6 +1,6 @@
 @tool
-extends Resource
 class_name CardTexture
+extends Resource
 
 @export var scale: float = 1
 

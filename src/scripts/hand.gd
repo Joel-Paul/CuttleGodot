@@ -1,4 +1,5 @@
 @tool
+class_name Hand
 extends Node2D
 
 const CURVE_POINTS = 20
@@ -18,7 +19,7 @@ const CURVE_POINTS = 20
 	set(val):
 		scale_spacing_y = val
 		queue_redraw()
-@export_range(0, PI / 2) var scale_rotation: float = .25:
+@export_range(0, 90, 0.1, "radians_as_degrees") var scale_rotation: float = .25:
 	set(val):
 		scale_rotation = val
 		queue_redraw()
@@ -54,7 +55,7 @@ const CURVE_POINTS = 20
 	set(val):
 		preview_card_texture = val
 		queue_redraw()
-@export_range(0, 20) var preview_num_cards: int = 8:
+@export_range(0, 20, 1, "suffix:cards") var preview_num_cards: int = 8:
 	set(val):
 		preview_num_cards = val
 		queue_redraw()
