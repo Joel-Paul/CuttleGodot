@@ -51,7 +51,7 @@ const CURVE_POINTS = 20
 	set(val):
 		preview_show_curve = val
 		queue_redraw()
-@export var preview_card_texture: CardTexture = preload("res://src/resources/card_textures/default.tres"):
+@export var preview_card_texture: CardTexture = preload("res://src/resources/card_textures/pixel_white_red.tres"):
 	set(val):
 		preview_card_texture = val
 		queue_redraw()

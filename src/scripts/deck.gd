@@ -2,7 +2,7 @@
 class_name Deck
 extends Node2D
 
-@export var card_texture: CardTexture = preload("res://src/resources/card_textures/default.tres"):
+@export var card_texture: CardTexture = preload("res://src/resources/card_textures/pixel_white_red.tres"):
 	set(val):
 		card_texture = val
 		queue_redraw()

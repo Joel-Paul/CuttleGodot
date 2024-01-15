@@ -4,4 +4,3 @@
 
 [node name="Hand" type="Marker2D"]
 script = ExtResource("1_5mdxx")
-full_hand = 8

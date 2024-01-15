@@ -15,7 +15,7 @@ enum SUIT {CLUBS, DIAMONDS, HEARTS, SPADES}
 		suit = val
 		_set_texture()
 
-@export var card_texture: CardTexture = preload("res://src/resources/card_textures/default.tres"):
+@export var card_texture: CardTexture = preload("res://src/resources/card_textures/pixel_white_red.tres"):
 	set(val):
 		card_texture = val
 		_set_texture()
