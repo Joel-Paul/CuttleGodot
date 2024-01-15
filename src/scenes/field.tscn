@@ -1,12 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2ujkk7ks172x"]
+[gd_scene load_steps=4 format=3 uid="uid://d2ujkk7ks172x"]
 
+[ext_resource type="Script" path="res://src/scripts/field.gd" id="1_2hfnq"]
 [ext_resource type="PackedScene" uid="uid://cu2807hfhmqf" path="res://src/scenes/hand.tscn" id="1_mkbk4"]
 [ext_resource type="PackedScene" uid="uid://do1v52abku40b" path="res://src/scenes/deck.tscn" id="2_5yg2p"]
 
 [node name="Field" type="Node2D"]
+script = ExtResource("1_2hfnq")
 
 [node name="Hand" parent="." instance=ExtResource("1_mkbk4")]
-position = Vector2(616, 565)
+position = Vector2(843, 866)
+hand_length = 13
+scale_spacing_x = 5.494
+scale_spacing_y = 0.376
+scale_rotation = 0.0872665
+preview_num_cards = 13
 
 [node name="Deck" parent="." instance=ExtResource("2_5yg2p")]
 position = Vector2(67, 375)

@@ -9,13 +9,15 @@ const CURVE_POINTS = 20
 		hand_length = val
 		queue_redraw()
 
+@onready var _cards: Node2D = $Cards
+
 #region Hand scaling
 @export_group("Scaling", "scale")
-@export_range(0, 5) var scale_spacing_x: float = 2.5:
+@export_range(0, 50) var scale_spacing_x: float = 2.5:
 	set(val):
 		scale_spacing_x = val
 		queue_redraw()
-@export_range(0, 5) var scale_spacing_y: float = .5:
+@export_range(0, 50) var scale_spacing_y: float = .5:
 	set(val):
 		scale_spacing_y = val
 		queue_redraw()
@@ -106,3 +108,26 @@ func get_card_transform(index: int, length: int) -> Transform2D:
 	var rot: float = curve_rotation.sample(norm_pos) * scale_rotation
 	
 	return Transform2D(rot, Vector2(x_pos, y_pos))
+
+
+func update_hand() -> void:
+	var cards = _cards.get_children()
+	for i: int in cards.size():
+		var trans = get_card_transform(i, cards.size())
+		var card: Card = cards[i]
+		rotate_card(card, trans.get_rotation())
+		move_card(card, trans.get_origin())
+
+
+func add_card(card: Card) -> void:
+	_cards.add_child(card)
+	update_hand()
+
+## Tweens card to a rotaiton.
+func rotate_card(card: Card, rot: float):
+	card.rotation = rot
+
+
+## Tweens card to a position.
+func move_card(card: Card, pos: Vector2):
+	card.position = pos

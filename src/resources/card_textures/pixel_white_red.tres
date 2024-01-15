@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="CardTexture" load_steps=57 format=3 uid="uid://chrohr23jvhlp"]
+[gd_resource type="Resource" script_class="CardTexture" load_steps=56 format=3 uid="uid://chrohr23jvhlp"]
 
 [ext_resource type="Texture2D" uid="uid://bf36esam5d8tg" path="res://addons/Pixel Playing Cards Pack/ace_clubs_white.png" id="1_d2r4q"]
 [ext_resource type="Texture2D" uid="uid://sv8bi5ux3gke" path="res://addons/Pixel Playing Cards Pack/back_red_basic_white.png" id="1_r0a2y"]
-[ext_resource type="Texture2D" uid="uid://cadvr4ifp4qfj" path="res://addons/Pixel Playing Cards Pack/blank_front_with_num_boarders_white.png" id="2_pp0as"]
 [ext_resource type="Texture2D" uid="uid://cynmqllexe3hr" path="res://addons/Pixel Playing Cards Pack/8_clubs_white.png" id="3_t6f7p"]
 [ext_resource type="Texture2D" uid="uid://cx6wrkgm7tpbu" path="res://addons/Pixel Playing Cards Pack/5_clubs_white.png" id="4_huufl"]
 [ext_resource type="Texture2D" uid="uid://bq51ccdfl3o1h" path="res://addons/Pixel Playing Cards Pack/4_clubs_white.png" id="5_bk1uc"]
@@ -59,7 +58,7 @@
 
 [resource]
 script = ExtResource("43_aj6ec")
-scale = 1.0
+scale = 2.0
 clubs_ace = ExtResource("1_d2r4q")
 clubs_two = ExtResource("14_ca085")
 clubs_three = ExtResource("13_kja03")
@@ -114,4 +113,3 @@ spades_queen = ExtResource("50_m77ra")
 spades_king = ExtResource("48_5oor0")
 joker = ExtResource("15_gdvxx")
 back = ExtResource("1_r0a2y")
-blank = ExtResource("2_pp0as")

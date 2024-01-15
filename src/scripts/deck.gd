@@ -25,24 +25,19 @@ extends Node2D
 		queue_redraw()
 #endregion
 
-var cards: Array[Card]
+var _cards: Array[Card]
+
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
-	_reset_deck()
+	reset_deck()
+
 
 func _draw() -> void:
 	_draw_empty()
 	_draw_stack()
 
-func _reset_deck() -> void:
-	cards.clear()
-	for suit: Card.SUIT in Card.SUIT.values():
-		for rank: Card.RANK in Card.RANK.values():
-			var card: Card = Card.new(rank, suit)
-			card.card_texture = card_texture
-			cards.push_back(card)
 
 func _draw_empty() -> void:
 	var style_box = StyleBoxFlat.new()
@@ -52,12 +47,37 @@ func _draw_empty() -> void:
 	var rect: Rect2 = Rect2(offset, card_texture.get_size())
 	draw_style_box(style_box, rect)
 
+
 func _draw_stack() -> void:
 	var stack_size = preview_deck_size
-	if not Engine.is_editor_hint() and not cards.is_empty():
-		stack_size = cards.size()
+	if not Engine.is_editor_hint() and not _cards.is_empty():
+		stack_size = _cards.size()
 	
 	var offset: Vector2 = card_texture.get_size() / -2.0  # make centre of card the origin
 	for i in stack_size:
 		var rect: Rect2 = Rect2(offset + stack_vector * i, card_texture.get_size())
 		draw_texture_rect(card_texture.back, rect, false)
+
+
+func reset_deck() -> void:
+	_cards.clear()
+	for suit: Card.SUIT in Card.SUIT.values():
+		for rank: Card.RANK in Card.RANK.values():
+			if rank == Card.RANK.JOKER:
+				continue
+			var card: Card = Card.new(rank, suit)
+			card.card_texture = card_texture
+			_cards.push_back(card)
+	shuffle()
+
+
+func shuffle() -> void:
+	_cards.shuffle()
+
+
+func draw_card() -> Card:
+	return _cards.pop_back()
+
+
+func is_empty() -> bool:
+	return _cards.is_empty()

@@ -32,9 +32,11 @@ func _ready() -> void:
 	add_child(card_sprite)
 	_set_texture()
 
+
 func _set_texture() -> void:
 	card_sprite.set_texture(_get_texture())
 	card_sprite.scale = Vector2.ONE * card_texture.scale
+
 
 func _get_texture() -> Texture2D:
 	if rank == RANK.JOKER:
