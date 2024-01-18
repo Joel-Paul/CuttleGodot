@@ -5,6 +5,9 @@ extends Node2D
 enum RANK {JOKER, ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING}
 enum SUIT {CLUBS, DIAMONDS, HEARTS, SPADES}
 
+signal flipped(card: Card)
+
+
 @export var rank: RANK:
 	set(val):
 		rank = val
@@ -20,13 +23,14 @@ enum SUIT {CLUBS, DIAMONDS, HEARTS, SPADES}
 		card_texture = val
 		_set_texture()
 
+@export var show_back: bool = false:
+	set(val):
+		show_back = val
+		_set_texture()
+
+@onready var anim_player: AnimationPlayer = %AnimationPlayer
 var card_sprite: Sprite2D = Sprite2D.new()
 
-func _init(p_rank: RANK = RANK.JOKER, p_suit: SUIT = SUIT.CLUBS) -> void:
-	if Engine.is_editor_hint():
-		return
-	rank = p_rank
-	suit = p_suit
 
 func _ready() -> void:
 	add_child(card_sprite)
@@ -39,10 +43,24 @@ func _set_texture() -> void:
 
 
 func _get_texture() -> Texture2D:
+	if show_back:
+		return card_texture.back
 	if rank == RANK.JOKER:
 		return card_texture.joker
 	# Subtract 1 to exclude RANK.JOKER
 	return card_texture.get_all()[(RANK.size() - 1) * suit + rank - 1]
 
+
 func get_size() -> Vector2:
 	return card_texture.get_size()
+
+
+func play_flip_card() -> void:
+	var animation: StringName = "flip_up" if show_back else "flip_down"
+	anim_player.play(animation)
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	match anim_name:
+		"flip_up", "flip_down":
+			flipped.emit(self)

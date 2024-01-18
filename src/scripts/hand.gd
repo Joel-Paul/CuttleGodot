@@ -9,7 +9,7 @@ const CURVE_POINTS = 20
 		hand_length = val
 		queue_redraw()
 
-@onready var _cards: Node2D = $Cards
+@onready var _cards: Node2D = %Cards
 
 #region Hand scaling
 @export_group("Scaling", "scale")
@@ -62,6 +62,7 @@ const CURVE_POINTS = 20
 		preview_num_cards = val
 		queue_redraw()
 #endregion
+
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
@@ -119,15 +120,19 @@ func update_hand() -> void:
 		move_card(card, trans.get_origin())
 
 
-func add_card(card: Card) -> void:
+func add_card(card: Card, pos: Vector2) -> void:
 	_cards.add_child(card)
+	card.global_position = pos
 	update_hand()
 
 ## Tweens card to a rotaiton.
 func rotate_card(card: Card, rot: float):
-	card.rotation = rot
+	var tween: Tween = create_tween()
+	tween.tween_property(card, "rotation", rot, 1).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+	#tween.set_parallel()
 
 
 ## Tweens card to a position.
 func move_card(card: Card, pos: Vector2):
-	card.position = pos
+	var tween: Tween = create_tween()
+	tween.tween_property(card, "position", pos, 1).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)

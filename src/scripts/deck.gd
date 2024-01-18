@@ -2,6 +2,7 @@
 class_name Deck
 extends Node2D
 
+
 @export var card_texture: CardTexture = preload("res://src/resources/card_textures/pixel_white_red.tres"):
 	set(val):
 		card_texture = val
@@ -25,6 +26,7 @@ extends Node2D
 		queue_redraw()
 #endregion
 
+var card_scene: PackedScene = preload("res://src/scenes/card.tscn")
 var _cards: Array[Card]
 
 
@@ -50,7 +52,7 @@ func _draw_empty() -> void:
 
 func _draw_stack() -> void:
 	var stack_size = preview_deck_size
-	if not Engine.is_editor_hint() and not _cards.is_empty():
+	if not Engine.is_editor_hint():
 		stack_size = _cards.size()
 	
 	var offset: Vector2 = card_texture.get_size() / -2.0  # make centre of card the origin
@@ -65,9 +67,7 @@ func reset_deck() -> void:
 		for rank: Card.RANK in Card.RANK.values():
 			if rank == Card.RANK.JOKER:
 				continue
-			var card: Card = Card.new(rank, suit)
-			card.card_texture = card_texture
-			_cards.push_back(card)
+			_cards.push_back(add_card(rank, suit))
 	shuffle()
 
 
@@ -76,8 +76,22 @@ func shuffle() -> void:
 
 
 func draw_card() -> Card:
-	return _cards.pop_back()
+	var card: Card = _cards.pop_back()
+	add_child(card)
+	card.position = stack_vector * _cards.size()
+	queue_redraw()
+	card.play_flip_card()
+	return card
 
 
 func is_empty() -> bool:
 	return _cards.is_empty()
+
+
+func add_card(rank: Card.RANK, suit: Card.SUIT) -> Card:
+	var card: Card = card_scene.instantiate()
+	card.card_texture = card_texture
+	card.rank = rank
+	card.suit = suit
+	card.show_back = true
+	return card

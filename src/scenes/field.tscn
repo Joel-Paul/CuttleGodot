@@ -8,12 +8,13 @@
 script = ExtResource("1_2hfnq")
 
 [node name="Hand" parent="." instance=ExtResource("1_mkbk4")]
-position = Vector2(843, 866)
-hand_length = 13
-scale_spacing_x = 5.494
-scale_spacing_y = 0.376
-scale_rotation = 0.0872665
-preview_num_cards = 13
+position = Vector2(833, 307)
+hand_length = 20
+scale_spacing_x = 6.0
+scale_spacing_y = 3.626
+scale_rotation = 1.5708
+preview_num_cards = 20
 
 [node name="Deck" parent="." instance=ExtResource("2_5yg2p")]
-position = Vector2(67, 375)
+position = Vector2(129, 150)
+stack_vector = Vector2(27.955, -1)
