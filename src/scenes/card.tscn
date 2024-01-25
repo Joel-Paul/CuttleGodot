@@ -95,7 +95,6 @@ _data = {
 }
 
 [node name="Card" type="Node2D"]
-position = Vector2(0, -10)
 script = ExtResource("1_oiatr")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

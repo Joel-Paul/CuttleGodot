@@ -2,14 +2,17 @@
 class_name Hand
 extends Node2D
 
-const CURVE_POINTS = 20
 
 @export_range(2, 20, 1, "suffix:cards") var hand_length: int = 8:
 	set(val):
 		hand_length = val
 		queue_redraw()
 
-@onready var _cards: Node2D = %Cards
+@export_range(-1.5, 1.5) var focused_card_y: float = -0.5:
+	set(val):
+		focused_card_y = val
+		focused_card_y_pos = val * get_card_height()
+		queue_redraw()
 
 #region Hand scaling
 @export_group("Scaling", "scale")
@@ -24,6 +27,10 @@ const CURVE_POINTS = 20
 @export_range(0, 90, 0.1, "radians_as_degrees") var scale_rotation: float = .25:
 	set(val):
 		scale_rotation = val
+		queue_redraw()
+@export_range(0, 10) var scale_focused_card_spacing: float = 0:
+	set(val):
+		scale_focused_card_spacing = val
 		queue_redraw()
 #endregion
 
@@ -44,6 +51,8 @@ const CURVE_POINTS = 20
 #endregion
 
 #region Hand preview
+const MAX_PREVIEW_CARDS = 20
+
 @export_group("Preview", "preview")
 @export var preview_show_cards: bool = true:
 	set(val):
@@ -53,44 +62,81 @@ const CURVE_POINTS = 20
 	set(val):
 		preview_show_curve = val
 		queue_redraw()
+@export var preview_show_focused_card_y: bool = true:
+	set(val):
+		preview_show_focused_card_y = val
+		queue_redraw()
 @export var preview_card_texture: CardTexture = preload("res://src/resources/card_textures/pixel_white_red.tres"):
 	set(val):
 		preview_card_texture = val
 		queue_redraw()
-@export_range(0, 20, 1, "suffix:cards") var preview_num_cards: int = 8:
+@export_range(0, MAX_PREVIEW_CARDS, 1, "suffix:cards") var preview_num_cards: int = 8:
 	set(val):
 		preview_num_cards = val
 		queue_redraw()
+@export_range(-1, MAX_PREVIEW_CARDS - 1) var preview_focused_card_index: int = -1:
+	set(val):
+		preview_focused_card_index = val % preview_num_cards
+		queue_redraw()
 #endregion
+
+const CURVE_POINTS = 20
+
+@onready var _cards: Node2D = %Cards
+var focused_card_index: int = -1
+var focused_card_y_pos: float
 
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
 		_draw_preview_cards()
 		_draw_preview_curve()
+		_draw_preview_focused_card_y()
 
+
+#region Editor Preview
 
 func _draw_preview_cards() -> void:
 	if not preview_show_cards: return
+	focused_card_index = preview_focused_card_index
 	
-	var offset: Vector2 = preview_card_texture.get_size() / -2.0  # make centre of card the origin
 	for i in preview_num_cards:
-		var trans: Transform2D = get_card_transform(i, preview_num_cards)
-		draw_set_transform_matrix(trans)
-
-		var rect: Rect2 = Rect2(offset, preview_card_texture.get_size())
-		draw_texture_rect(preview_card_texture.back, rect, false)
+		if i != focused_card_index:
+			_draw_preview_card(i)
+	
+	if focused_card_index > -1:
+		_draw_preview_card(focused_card_index)
+	
 	draw_set_transform(Vector2.ZERO)
+
+
+func _draw_preview_card(index: int) -> void:
+	var offset: Vector2 = get_card_size() / -2.0  # make centre of card the origin
+	
+	var trans: Transform2D = get_card_transform(index, preview_num_cards)
+	draw_set_transform_matrix(trans)
+	
+	var rect: Rect2 = Rect2(offset, get_card_size())
+	draw_texture_rect(preview_card_texture.back, rect, false)
 
 
 func _draw_preview_curve() -> void:
 	if not preview_show_curve: return
+	focused_card_index = -1
 	
 	var points: PackedVector2Array = PackedVector2Array()
 	for i in CURVE_POINTS:
 		var trans = get_card_transform(i, CURVE_POINTS)
 		points.push_back(trans.get_origin())
 	draw_polyline(points, Color.RED, 2)
+
+
+func _draw_preview_focused_card_y() -> void:
+	if not preview_show_focused_card_y: return
+	var x_pos = (scale_spacing_x + 1) * get_card_width()
+	draw_line(Vector2(-x_pos, focused_card_y_pos), Vector2(x_pos, focused_card_y_pos), Color.BLUE, 2)
+
+#endregion
 
 
 func get_card_transform(index: int, length: int) -> Transform2D:
@@ -101,14 +147,26 @@ func get_card_transform(index: int, length: int) -> Transform2D:
 	# To reduce the gap, we can pretend there are more cards in the
 	# calculation, then add an offset to correctly centre the cards.
 	var effective_length: float = maxf(length, hand_length) - 1
-	var offset: float = maxf(0, hand_length - length) / effective_length / 2
-	var norm_pos = index / effective_length + offset
+	var effective_offset: float = maxf(0, hand_length - length) / effective_length / 2
+	var norm_pos = index / effective_length + effective_offset
 	
-	var x_pos: float = curve_spacing_x.sample(norm_pos) * scale_spacing_x * preview_card_texture.get_width()
-	var y_pos: float = -curve_spacing_y.sample(norm_pos) * scale_spacing_y * preview_card_texture.get_height()
+	if focused_card_index == index:
+		pass
+	elif focused_card_index > -1:
+		var focused_offset = scale_focused_card_spacing / (get_card_width() * (index - focused_card_index))
+		norm_pos += focused_offset
+	
+	var x_pos: float = curve_spacing_x.sample(norm_pos) * scale_spacing_x * get_card_width()
+	var y_pos: float = -curve_spacing_y.sample(norm_pos) * scale_spacing_y * get_card_height()
 	var rot: float = curve_rotation.sample(norm_pos) * scale_rotation
+	var scal = Vector2.ONE
 	
-	return Transform2D(rot, Vector2(x_pos, y_pos))
+	if focused_card_index == index:
+		y_pos = focused_card_y_pos
+		rot = 0
+		scal *= 1.25
+	
+	return Transform2D(rot, scal, 0, Vector2(x_pos, y_pos))
 
 
 func update_hand() -> void:
@@ -136,3 +194,13 @@ func rotate_card(card: Card, rot: float):
 func move_card(card: Card, pos: Vector2):
 	var tween: Tween = create_tween()
 	tween.tween_property(card, "position", pos, 1).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+
+
+func get_card_width() -> float:
+	return preview_card_texture.get_width()
+
+func get_card_height() -> float:
+	return preview_card_texture.get_height()
+
+func get_card_size() -> Vector2:
+	return preview_card_texture.get_size()
