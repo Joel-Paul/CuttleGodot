@@ -63,7 +63,10 @@ func _draw_stack() -> void:
 
 func reset_deck() -> void:
 	_cards.clear()
+	var exclude = [Card.SUIT.CLUBS, Card.SUIT.DIAMONDS, Card.SUIT.HEARTS, Card.SUIT.CLUBS]
 	for suit: Card.SUIT in Card.SUIT.values():
+		if suit in exclude:
+			continue
 		for rank: Card.RANK in Card.RANK.values():
 			if rank == Card.RANK.JOKER:
 				continue
