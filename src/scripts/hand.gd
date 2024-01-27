@@ -82,8 +82,19 @@ const MAX_PREVIEW_CARDS = 52
 const CURVE_POINTS = 20
 
 @onready var _cards: Node2D = %Cards
+
 var focused_card_index: int = -1
 var focused_card_y_pos: float = focused_card_y * get_card_height()
+var dragging_card: Card
+
+var rotate_tween: Tween
+var move_tween: Tween
+var scale_tween: Tween
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion and dragging_card != null:
+		dragging_card.global_position += event.relative
 
 
 func _draw() -> void:
@@ -138,6 +149,15 @@ func _draw_preview_focused_card_y() -> void:
 #endregion
 
 
+func _reset_tweens() -> void:
+	if rotate_tween: rotate_tween.kill()
+	rotate_tween = create_tween().set_parallel()
+	if move_tween: move_tween.kill()
+	move_tween = create_tween().set_parallel()
+	if scale_tween: scale_tween.kill()
+	scale_tween = create_tween().set_parallel()
+
+
 func get_card_transform(index: int, length: int) -> Transform2D:
 	# Normally, cards will distribute themselves evenly on a range
 	# between 0 and 1, which is then fed into the Curve functions.
@@ -169,16 +189,20 @@ func get_card_transform(index: int, length: int) -> Transform2D:
 
 
 func update_hand() -> void:
+	_reset_tweens()
 	var cards = _cards.get_children()
 	for i: int in cards.size():
 		var trans = get_card_transform(i, cards.size())
 		var card: Card = cards[i]
 		card.z_index = i + 1
-		if i == focused_card_index:
-			card.z_index *= 1
-		rotate_card(card, trans.get_rotation())
-		move_card(card, trans.get_origin())
-		scale_card(card, trans.get_scale())
+		if focused_card_index == i:
+			rotate_card(card, trans.get_rotation(), 0.1)
+			move_card(card, trans.get_origin(), 0.1)
+			scale_card(card, trans.get_scale(), 0.1)
+		else:
+			rotate_card(card, trans.get_rotation())
+			move_card(card, trans.get_origin())
+			scale_card(card, trans.get_scale(), 0.5)
 
 
 func add_card(card: Card, pos: Vector2) -> void:
@@ -186,34 +210,45 @@ func add_card(card: Card, pos: Vector2) -> void:
 	card.global_position = pos
 	card.focus.connect(focus_card)
 	card.unfocus.connect(unfocus_card)
+	card.clicked.connect(clicked_card)
+	card.released.connect(released_card)
 	update_hand()
 
 
 ## Tweens card to a rotaiton.
-func rotate_card(card: Card, rot: float) -> void:
-	var tween: Tween = create_tween()
-	tween.tween_property(card, "rotation", rot, 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
-	#tween.set_parallel()
+func rotate_card(card: Card, rot: float, duration: float = 1) -> void:
+	rotate_tween.tween_property(card, "rotation", rot, duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 
 
 ## Tweens card to a position.
-func move_card(card: Card, pos: Vector2) -> void:
-	var tween: Tween = create_tween()
-	tween.tween_property(card, "position", pos, 1).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+func move_card(card: Card, pos: Vector2, duration: float = 1) -> void:
+	move_tween.tween_property(card, "position", pos, duration).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
 
 
 ## Tweens card to a scale.
-func scale_card(card: Card, scal: Vector2) -> void:
-	var tween: Tween = create_tween()
-	tween.tween_property(card, "scale", scal, 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+func scale_card(card: Card, scal: Vector2, duration: float = 1) -> void:
+	scale_tween.tween_property(card, "scale", scal, duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 
 
 func focus_card(card: Card) -> void:
+	if dragging_card != null: return
 	focused_card_index = _cards.get_children().find(card)
 	update_hand()
 
 
 func unfocus_card() -> void:
+	if dragging_card != null: return
+	focused_card_index = -1
+	update_hand()
+
+
+func clicked_card(card: Card) -> void:
+	dragging_card = card
+	card.z_index *= 100
+
+
+func released_card() -> void:
+	dragging_card = null
 	focused_card_index = -1
 	update_hand()
 

@@ -6,8 +6,12 @@ enum RANK {JOKER, ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JAC
 enum SUIT {CLUBS, DIAMONDS, HEARTS, SPADES}
 
 signal flipped(card: Card)
+
 signal focus(card: Card)
 signal unfocus
+
+signal clicked(card: Card)
+signal released
 
 
 @export var rank: RANK:
@@ -43,6 +47,8 @@ func _ready() -> void:
 func _connect_signals() -> void:
 	card_button.mouse_entered.connect(_on_mouse_entered)
 	card_button.mouse_exited.connect(_on_mouse_exited)
+	card_button.button_down.connect(_on_button_down)
+	card_button.button_up.connect(_on_button_up)
 
 
 func _setup_button() -> void:
@@ -86,3 +92,11 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	unfocus.emit()
+
+
+func _on_button_down():
+	clicked.emit(self)
+
+
+func _on_button_up():
+	released.emit()
