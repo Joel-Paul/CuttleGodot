@@ -205,6 +205,13 @@ func update_hand() -> void:
 			scale_card(card, trans.get_scale(), 0.5)
 
 
+func reorder_cards() -> void:
+	var cards = _cards.get_children()
+	cards.sort_custom(func(a: Card, b: Card): return a.value() < b.value())
+	for i in cards.size():
+		_cards.move_child(cards[i], i)
+
+
 func add_card(card: Card, pos: Vector2) -> void:
 	_cards.add_child(card)
 	card.global_position = pos
@@ -212,6 +219,7 @@ func add_card(card: Card, pos: Vector2) -> void:
 	card.unfocus.connect(unfocus_card)
 	card.clicked.connect(clicked_card)
 	card.released.connect(released_card)
+	reorder_cards()
 	update_hand()
 
 

@@ -76,6 +76,10 @@ func play_flip_card() -> void:
 	anim_player.play(animation)
 
 
+func value() -> int:
+	return rank * 10 + suit
+
+
 func card_string() -> String:
 	return str(RANK.find_key(rank)) + ' OF ' + str(SUIT.find_key(suit))
 
