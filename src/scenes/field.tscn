@@ -21,13 +21,15 @@ preview_focused_card_index = 2
 
 [node name="Deck" parent="." instance=ExtResource("2_5yg2p")]
 unique_name_in_owner = true
-position = Vector2(89, 468)
+position = Vector2(75, 468)
 stack_vector = Vector2(-0.13, -0.175)
 
 [node name="PlayArea" parent="." instance=ExtResource("4_hytrg")]
 unique_name_in_owner = true
 position = Vector2(832, 611.705)
 hand_length = 11
+padding_play_area_top = 200.0
+padding_play_area_side = 10.0
 scale_spacing_x = 5.17
 preview_num_cards = 11
 

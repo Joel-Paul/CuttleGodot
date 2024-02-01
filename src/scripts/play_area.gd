@@ -8,9 +8,19 @@ const MAX_PREVIEW_CARDS = 52
 	set(val):
 		hand_length = val
 		queue_redraw()
-@export_range(0, 100, 0.01, "suffix:px") var play_area_margin: float = 0:
+
+@export_group("Padding", "padding")
+@export_range(0, 200, 0.01, "suffix:px") var padding_play_area_top: float = 0:
 	set(val):
-		play_area_margin = val
+		padding_play_area_top = val
+		queue_redraw()
+@export_range(0, 200, 0.01, "suffix:px") var padding_play_area_bottom: float = 0:
+	set(val):
+		padding_play_area_bottom = val
+		queue_redraw()
+@export_range(0, 200, 0.01, "suffix:px") var padding_play_area_side: float = 0:
+	set(val):
+		padding_play_area_side = val
 		queue_redraw()
 
 #region Play Area scaling
@@ -143,9 +153,9 @@ func order_cards() -> void:
 
 
 func create_play_rect() -> Rect2:
-	var offset = get_card_size() / 2 + Vector2.ONE * play_area_margin
-	var pos_start = get_card_transform(0, hand_length).get_origin() - offset
-	var pos_end = get_card_transform(hand_length - 1, hand_length).get_origin() + offset
+	var offset = get_card_size() / 2
+	var pos_start = get_card_transform(0, hand_length).get_origin() - offset + Vector2(-padding_play_area_side, -padding_play_area_top)
+	var pos_end = get_card_transform(hand_length - 1, hand_length).get_origin() + offset + Vector2(padding_play_area_side, padding_play_area_bottom)
 	return Rect2(pos_start, pos_end - pos_start)
 
 
