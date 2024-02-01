@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0sm65krp0ju6"]
+
+[ext_resource type="Script" path="res://src/scripts/play_area.gd" id="1_t4qr5"]
+
+[node name="PlayArea" type="Marker2D"]
+script = ExtResource("1_t4qr5")
+scale_spacing_x = 3.6
+
+[node name="Cards" type="Node2D" parent="."]
+unique_name_in_owner = true

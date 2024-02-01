@@ -2,8 +2,6 @@
 class_name Card
 extends Node2D
 
-enum RANK {JOKER, ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING}
-enum SUIT {CLUBS, DIAMONDS, HEARTS, SPADES}
 
 signal flipped(card: Card)
 
@@ -13,6 +11,9 @@ signal unfocus
 signal clicked(card: Card)
 signal released
 
+
+enum RANK {JOKER, ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING}
+enum SUIT {CLUBS, DIAMONDS, HEARTS, SPADES}
 
 @export var rank: RANK:
 	set(val):
@@ -65,6 +66,11 @@ func _get_texture() -> Texture2D:
 		return card_texture.joker
 	# Subtract 1 to exclude RANK.JOKER
 	return card_texture.get_all()[(RANK.size() - 1) * suit + rank - 1]
+
+
+func setup(_rank: Card.RANK, _suit: Card.SUIT) -> void:
+	rank = _rank
+	suit = _suit
 
 
 func get_size() -> Vector2:

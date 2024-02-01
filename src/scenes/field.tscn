@@ -1,15 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2ujkk7ks172x"]
+[gd_scene load_steps=5 format=3 uid="uid://d2ujkk7ks172x"]
 
 [ext_resource type="Script" path="res://src/scripts/field.gd" id="1_2hfnq"]
 [ext_resource type="PackedScene" uid="uid://cu2807hfhmqf" path="res://src/scenes/hand.tscn" id="1_mkbk4"]
 [ext_resource type="PackedScene" uid="uid://do1v52abku40b" path="res://src/scenes/deck.tscn" id="2_5yg2p"]
+[ext_resource type="PackedScene" uid="uid://b0sm65krp0ju6" path="res://src/scenes/play_area.tscn" id="4_hytrg"]
 
 [node name="Field" type="Node2D"]
 script = ExtResource("1_2hfnq")
 
 [node name="Hand" parent="." instance=ExtResource("1_mkbk4")]
 unique_name_in_owner = true
-position = Vector2(841, 880)
+position = Vector2(832, 863)
 hand_length = 14
 focused_card_y = -0.29
 scale_spacing_x = 4.772
@@ -20,5 +21,14 @@ preview_focused_card_index = 2
 
 [node name="Deck" parent="." instance=ExtResource("2_5yg2p")]
 unique_name_in_owner = true
-position = Vector2(129, 150)
-stack_vector = Vector2(27.955, -1)
+position = Vector2(89, 468)
+stack_vector = Vector2(-0.13, -0.175)
+
+[node name="PlayArea" parent="." instance=ExtResource("4_hytrg")]
+unique_name_in_owner = true
+position = Vector2(832, 611.705)
+hand_length = 11
+scale_spacing_x = 5.17
+preview_num_cards = 11
+
+[connection signal="released" from="Hand" to="." method="_on_hand_released"]
