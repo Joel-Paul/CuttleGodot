@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cu2807hfhmqf"]
+[gd_scene load_steps=5 format=3 uid="uid://cu2807hfhmqf"]
 
 [ext_resource type="Script" path="res://src/scripts/hand.gd" id="1_5mdxx"]
+[ext_resource type="Curve" uid="uid://ddxlivuuui5tf" path="res://src/resources/curves/hand/hand_spacing_x.tres" id="2_wntom"]
+[ext_resource type="Curve" uid="uid://5pdoqeypuhx0" path="res://src/resources/curves/hand/hand_spacing_y.tres" id="3_b6egd"]
+[ext_resource type="Curve" uid="uid://dvimg7pj0vm50" path="res://src/resources/curves/hand/hand_rotation.tres" id="4_2xnjb"]
 
 [node name="Hand" type="Marker2D"]
 script = ExtResource("1_5mdxx")
-
-[node name="Cards" type="Node2D" parent="."]
-unique_name_in_owner = true
+curve_spacing_x = ExtResource("2_wntom")
+curve_spacing_y = ExtResource("3_b6egd")
+curve_rotation = ExtResource("4_2xnjb")

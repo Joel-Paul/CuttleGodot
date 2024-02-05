@@ -1,10 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0sm65krp0ju6"]
+[gd_scene load_steps=5 format=3 uid="uid://b0sm65krp0ju6"]
 
 [ext_resource type="Script" path="res://src/scripts/play_area.gd" id="1_t4qr5"]
 
+[sub_resource type="Curve" id="Curve_o7qm7"]
+min_value = -1.0
+_data = [Vector2(0, -1), 0.0, 2.0, 0, 1, Vector2(1, 1), 2.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_uuxug"]
+
+[sub_resource type="Curve" id="Curve_u23w0"]
+
 [node name="PlayArea" type="Marker2D"]
 script = ExtResource("1_t4qr5")
-scale_spacing_x = 3.6
-
-[node name="Cards" type="Node2D" parent="."]
-unique_name_in_owner = true
+card_spread_limit = 20
+curve_spacing_x = SubResource("Curve_o7qm7")
+curve_spacing_y = SubResource("Curve_uuxug")
+curve_rotation = SubResource("Curve_u23w0")
+preview_num_cards = 20

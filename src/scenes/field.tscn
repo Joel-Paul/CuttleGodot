@@ -10,13 +10,13 @@ script = ExtResource("1_2hfnq")
 
 [node name="Hand" parent="." instance=ExtResource("1_mkbk4")]
 unique_name_in_owner = true
-position = Vector2(832, 863)
-hand_length = 14
-focused_card_y = -0.29
-scale_spacing_x = 4.772
-scale_spacing_y = 0.437
-scale_rotation = 0.123918
-scale_focused_card_spacing = 5.0
+position = Vector2(832, 913.3)
+card_spread_limit = 13
+focused_card_y = -0.5
+scale_spacing_x = 0.649
+scale_spacing_y = 0.134
+scale_rotation = 0.0575959
+preview_num_cards = 13
 preview_focused_card_index = 2
 
 [node name="Deck" parent="." instance=ExtResource("2_5yg2p")]
@@ -27,10 +27,11 @@ stack_vector = Vector2(-0.13, -0.175)
 [node name="PlayArea" parent="." instance=ExtResource("4_hytrg")]
 unique_name_in_owner = true
 position = Vector2(832, 611.705)
-hand_length = 11
-padding_play_area_top = 200.0
-padding_play_area_side = 10.0
-scale_spacing_x = 5.17
-preview_num_cards = 11
+padding_play_area_top = 150.0
+padding_play_area_bottom = 50.0
+padding_play_area_side = 25.0
+card_spread_limit = 10
+scale_spacing_x = 0.66
+preview_num_cards = 10
 
 [connection signal="released" from="Hand" to="." method="_on_hand_released"]
