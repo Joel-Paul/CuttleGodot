@@ -16,13 +16,14 @@ focused_card_y = -0.5
 scale_spacing_x = 0.649
 scale_spacing_y = 0.134
 scale_rotation = 0.0575959
-preview_num_cards = 13
-preview_focused_card_index = 2
+scale_focused_card_spread = 42.0
+preview_num_cards = 35
+preview_focused_card_index = 14
 
 [node name="Deck" parent="." instance=ExtResource("2_5yg2p")]
 unique_name_in_owner = true
 position = Vector2(75, 468)
-stack_vector = Vector2(-0.13, -0.175)
+stack_vector = Vector2(-0.29, -0.38)
 
 [node name="PlayArea" parent="." instance=ExtResource("4_hytrg")]
 unique_name_in_owner = true
@@ -34,4 +35,5 @@ card_spread_limit = 10
 scale_spacing_x = 0.66
 preview_num_cards = 10
 
+[connection signal="dragged" from="Hand" to="." method="_on_hand_dragged"]
 [connection signal="released" from="Hand" to="." method="_on_hand_released"]

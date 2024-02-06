@@ -14,7 +14,7 @@ point_count = 2
 [node name="PlayArea" type="Marker2D"]
 script = ExtResource("1_t4qr5")
 card_spread_limit = 20
+scale_focused_card_spread = 70.0
 curve_spacing_x = SubResource("Curve_o7qm7")
 curve_spacing_y = SubResource("Curve_uuxug")
 curve_rotation = SubResource("Curve_u23w0")
-preview_num_cards = 20

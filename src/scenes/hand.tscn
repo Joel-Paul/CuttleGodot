@@ -7,6 +7,7 @@
 
 [node name="Hand" type="Marker2D"]
 script = ExtResource("1_5mdxx")
+scale_focused_card_spread = 35.0
 curve_spacing_x = ExtResource("2_wntom")
 curve_spacing_y = ExtResource("3_b6egd")
 curve_rotation = ExtResource("4_2xnjb")

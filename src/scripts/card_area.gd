@@ -29,6 +29,10 @@ const MAX_PREVIEW_CARDS = 52
 	set(val):
 		scale_rotation = val
 		queue_redraw()
+@export_range(0, 100) var scale_focused_card_spread: float = 50:
+	set(val):
+		scale_focused_card_spread = val
+		queue_redraw()
 #endregion
 
 #region Hand curves
@@ -80,6 +84,12 @@ const MAX_PREVIEW_CARDS = 52
 
 @onready var _cards: Node2D = Node2D.new()
 
+
+var is_dragging = false
+var added_card_z_index = 100
+var focused_card_z_index = 100
+
+var _added_card: Card
 var _focused_card_index: int = -1
 
 var _rotate_tween: Tween
@@ -148,9 +158,9 @@ func _draw_preview_curve() -> void:
 
 func _draw_preview_focused_card_y() -> void:
 	if not preview_show_focused_card_y: return
-	var trans = get_card_transform(0, card_spread_limit)
-	var x_pos = trans.get_origin().x
-	draw_line(Vector2(-x_pos, _focused_card_y_pos()), Vector2(x_pos, _focused_card_y_pos()), Color.BLUE, 2)
+	var start_x = get_card_transform(0, card_spread_limit).get_origin().x
+	var stop_x = get_card_transform(card_spread_limit - 1, card_spread_limit).get_origin().x
+	draw_line(Vector2(start_x, _focused_card_y_pos()), Vector2(stop_x, _focused_card_y_pos()), Color.BLUE, 2)
 #endregion
 
 
@@ -162,6 +172,12 @@ func _reset_tweens() -> void:
 		_rotate_tween = create_tween().set_parallel()
 		_move_tween = create_tween().set_parallel()
 		_scale_tween = create_tween().set_parallel()
+
+
+func _reset_added_card() -> void:
+	if _added_card == null: return
+	_added_card.z_index -= added_card_z_index
+	_added_card = null
 
 
 func _focused_card_y_pos() -> float:
@@ -180,14 +196,9 @@ func get_card_transform(index: int, length: int) -> Transform2D:
 	var effective_offset: float = maxf(0, card_spread_limit - length) / effective_length / 2
 	var norm_pos = index / effective_length + effective_offset
 	
-	if _focused_card_index == index:
-		pass
-	elif _focused_card_index > -1:
-		# TODO: Make a better focus system
-		var focused_offset = 1 / (get_card_width() * (index - _focused_card_index))
-		norm_pos += focused_offset
+	var x_scale: float = scale_spacing_x * get_viewport_rect().size.x / 2
 	
-	var x_pos: float = curve_spacing_x.sample(norm_pos) * scale_spacing_x * get_viewport_rect().size.x / 2
+	var x_pos: float = curve_spacing_x.sample(norm_pos) * x_scale
 	var y_pos: float = -curve_spacing_y.sample(norm_pos) * scale_spacing_y * get_viewport_rect().size.y / 2
 	var rot: float = curve_rotation.sample(norm_pos) * scale_rotation
 	var scal = Vector2.ONE
@@ -196,6 +207,9 @@ func get_card_transform(index: int, length: int) -> Transform2D:
 		y_pos = _focused_card_y_pos()
 		rot = 0
 		scal *= 1.25
+	elif _focused_card_index > -1:
+		x_pos += sign(index - _focused_card_index) * effective_length * get_card_width() / scale_focused_card_spread
+		x_pos = clampf(x_pos, -x_scale, x_scale)
 	
 	return Transform2D(rot, scal, 0, Vector2(x_pos, y_pos))
 
@@ -207,14 +221,15 @@ func update_hand() -> void:
 		var trans = get_card_transform(i, cards.size())
 		var card: Card = cards[i]
 		card.z_index = i + 1
-		if _focused_card_index == i:
-			rotate_card(card, trans.get_rotation(), 0.1)
-			move_card(card, trans.get_origin(), 0.1)
-			scale_card(card, trans.get_scale(), 0.1)
+		
+		if card == _added_card:
+			card.z_index += added_card_z_index
+			tween_added(card, trans)
+			get_tree().create_timer(0.5).timeout.connect(_reset_added_card)
+		elif _focused_card_index == i:
+			tween_focused(card, trans)
 		else:
-			rotate_card(card, trans.get_rotation())
-			move_card(card, trans.get_origin())
-			scale_card(card, trans.get_scale(), 0.5)
+			tween_unfocused(card, trans)
 
 
 func order_cards() -> void:
@@ -225,6 +240,7 @@ func order_cards() -> void:
 
 
 func add_card(card: Card, pos: Vector2) -> void:
+	_added_card = card
 	_cards.add_child(card)
 	card.global_position = pos
 	card.focus.connect(focus_card)
@@ -241,32 +257,62 @@ func remove_card(card: Card) -> void:
 
 
 #region Tweens
-func rotate_card(card: Card, rot: float, duration: float = 1) -> void:
-	_rotate_tween.tween_property(card, "rotation", rot, duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+func tween_added(card: Card, trans: Transform2D) -> void:
+	rotate_card(card, trans.get_rotation())
+	move_card(card, trans.get_origin())
+	scale_card(card, trans.get_scale())
 
 
-func move_card(card: Card, pos: Vector2, duration: float = 1) -> void:
-	_move_tween.tween_property(card, "position", pos, duration).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+func tween_focused(card: Card, trans: Transform2D) -> void:
+	tween_added(card, trans)
 
 
-func scale_card(card: Card, scal: Vector2, duration: float = 1) -> void:
-	_scale_tween.tween_property(card, "scale", scal, duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+func tween_unfocused(card: Card, trans: Transform2D) -> void:
+	tween_focused(card, trans)
+
+
+func rotate_card(card: Card, rot: float, duration: float = 1,
+		trans_type: Tween.TransitionType = Tween.TRANS_LINEAR, ease_type: Tween.EaseType = Tween.EASE_OUT) -> void:
+	_rotate_tween.tween_property(card, "rotation", rot, duration).set_trans(trans_type).set_ease(ease_type)
+
+
+func move_card(card: Card, pos: Vector2, duration: float = 1,
+		trans_type: Tween.TransitionType = Tween.TRANS_LINEAR, ease_type: Tween.EaseType = Tween.EASE_OUT) -> void:
+	_move_tween.tween_property(card, "position", pos, duration).set_trans(trans_type).set_ease(ease_type)
+
+
+func scale_card(card: Card, scal: Vector2, duration: float = 1,
+		trans_type: Tween.TransitionType = Tween.TRANS_LINEAR, ease_type: Tween.EaseType = Tween.EASE_OUT) -> void:
+	_scale_tween.tween_property(card, "scale", scal, duration).set_trans(trans_type).set_ease(ease_type)
 #endregion
 
 
 #region Signals
 func focus_card(card: Card) -> void:
+	if is_dragging: return
+	if _added_card != null and _added_card == card: return
 	_focused_card_index = _cards.get_children().find(card)
 	update_hand()
+	card.z_index += focused_card_z_index
 
 
 func unfocus_card() -> void:
+	if is_dragging: return
 	_focused_card_index = -1
 	update_hand()
 #endregion
 
 
 #region Card sizes
+func calculate_max_width() -> float:
+	var width: float = 0
+	for child in _cards.get_children():
+		if child is Card:
+			var card: Card = child
+			width += card.get_width()
+	return width
+
+
 func get_card_width() -> float:
 	return preview_card_texture.get_width()
 

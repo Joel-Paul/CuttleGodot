@@ -17,9 +17,7 @@ extends CardArea
 		padding_play_area_side = val
 		queue_redraw()
 
-
 var _play_rect: Rect2
-var _new_card: Card
 
 
 func _ready() -> void:
@@ -38,9 +36,22 @@ func _draw_play_area() -> void:
 	draw_rect(_play_rect, Color.SKY_BLUE, false)
 
 
-func focus_card(card: Card) -> void:
-	if _new_card == card: return
-	super.focus_card(card)
+func tween_added(card: Card, trans: Transform2D) -> void:
+	rotate_card(card, trans.get_rotation(), 0.5)
+	move_card(card, trans.get_origin(), 1, Tween.TRANS_QUART)
+	scale_card(card, trans.get_scale(), 0.5, Tween.TRANS_EXPO)
+
+
+func tween_focused(card: Card, trans: Transform2D) -> void:
+	rotate_card(card, trans.get_rotation(), 0.1)
+	move_card(card, trans.get_origin(), 0.1, Tween.TRANS_QUART)
+	scale_card(card, trans.get_scale(), 0.1)
+
+
+func tween_unfocused(card: Card, trans: Transform2D) -> void:
+	rotate_card(card, trans.get_rotation(), 0.1)
+	move_card(card, trans.get_origin(), 1, Tween.TRANS_QUART)
+	scale_card(card, trans.get_scale(), 0.1)
 
 
 func create_play_rect() -> Rect2:
@@ -52,8 +63,3 @@ func create_play_rect() -> Rect2:
 
 func inside_play_area(pos: Vector2) -> bool:
 	return _play_rect.has_point(pos)
-
-
-func add_card(card: Card, pos: Vector2) -> void:
-	_new_card = card
-	super.add_card(card, pos)
